@@ -1,3 +1,6 @@
+#!/bin/bash
+
+Crontab_file="/usr/bin/crontab"
 
 # 检查是否为 root 用户
 check_root() {
