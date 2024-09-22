@@ -1,2 +1,2 @@
-# teastudy
-study knowledge of tea protocal
+# linux 脚本命令学习
+study knowledge of linux command
