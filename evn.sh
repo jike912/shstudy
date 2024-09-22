@@ -68,7 +68,66 @@ install_env_and_full_node() {
 }
 
 
+# 创建钱包
+create_wallet() {
+  echo -e "\n"
+  cd ~/cat-token-box/packages/cli
+  sudo yarn cli wallet create
+  echo -e "\n"
+  sudo yarn cli wallet address
+  echo -e "请保存上面创建好的钱包地址、助记词"
+}
 
+# 启动 mint 并设置 gas 费用
+start_mint_cat() {
+  read -p "请输入想要mint的gas: " newMaxFeeRate
+  sed -i "s/\"maxFeeRate\": [0-9]*/\"maxFeeRate\": $newMaxFeeRate/" ~/cat-token-box/packages/cli/config.json
+  cd ~/cat-token-box/packages/cli
+  bash ~/cat-token-box/packages/cli/mint_script.sh
+}
+
+# 查看节点同步日志
+check_node_log() {
+  docker logs -f --tail 100 tracker
+}
+
+# 查看钱包余额
+check_wallet_balance() {
+  cd ~/cat-token-box/packages/cli
+  sudo yarn cli wallet balances
+}
+
+# 显示主菜单
+echo -e "
+1. 安装依赖环境和全节点
+2. 创建钱包
+3. 开始 mint cat
+4. 查看节点同步日志
+5. 查看钱包余额
+"
+
+# 获取用户选择并执行相应操作
+read -e -p "请输入您的选择: " num
+case "$num" in
+1)
+    install_env_and_full_node
+    ;;
+2)
+    create_wallet
+    ;;
+3)
+    start_mint_cat
+    ;;
+4)
+    check_node_log
+    ;;
+5)
+    check_wallet_balance
+    ;;
+*)
+    echo "错误: 请输入有效的数字。"
+    ;;
+esac
 
 
 
