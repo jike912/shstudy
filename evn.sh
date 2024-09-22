@@ -11,19 +11,27 @@ check_root() {
 install_env_and_full_node() {
     check_root
     sudo apt update && sudo apt upgrade -y
+    #安装 curl tar wget git unzip zip docker等一系列命令
     sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu unzip zip docker.io -y
+    
+    #安装docker-compose
     VERSION=$(curl --silent https://api.github.com/repos/docker/compose/releases/latest | grep -Po '"tag_name": "\K.*\d')
     DESTINATION=/usr/local/bin/docker-compose
     sudo curl -L https://github.com/docker/compose/releases/download/${VERSION}/docker-compose-$(uname -s)-$(uname -m) -o $DESTINATION
     sudo chmod 755 $DESTINATION
 
+    #安装npm
     sudo apt-get install npm -y
+    #安装yarn
     sudo npm install n -g
     sudo n stable
     sudo npm i -g yarn
-
+    
+    #拉取github上项目
     git clone https://github.com/CATProtocol/cat-token-box
     cd cat-token-box
+    
+    #yarn 安装编译项目
     sudo yarn install
     sudo yarn build
 
@@ -41,6 +49,8 @@ install_env_and_full_node() {
         -e RPC_HOST="host.docker.internal" \
         -p 3000:3000 \
         tracker:latest
+
+    #以下内容输入到项目下的config.json文件中    
     echo '{
       "network": "fractal-mainnet",
       "tracker": "http://127.0.0.1:3000",
@@ -55,8 +65,9 @@ install_env_and_full_node() {
 
     echo '#!/bin/bash
 
+    #mint cat代币
     command="sudo yarn cli mint -i 45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0 5"
-
+    #循环执行mint 代币
     while true; do
         $command
 
