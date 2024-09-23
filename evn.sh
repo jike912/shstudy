@@ -80,8 +80,9 @@ install_env_and_full_node() {
 
 
     #将下面的mint cat代币的脚本程序输出到/cat-token-box/packages/cli 的mint_script.sh文件中
-    echo '#!/bin/bash   
-    command="sudo yarn cli mint -i 45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0 5"
+    echo '#!/bin/bash
+    tokenId=45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0
+    command="sudo yarn cli mint -i"+tokenId +oneMint
     #循环执行mint 代币
     while true; do
         $command
@@ -113,6 +114,53 @@ start_mint_cat() {
   sed -i "s/\"maxFeeRate\": [0-9]*/\"maxFeeRate\": $newMaxFeeRate/" ~/cat-token-box/packages/cli/config.json
   cd ~/cat-token-box/packages/cli
   bash ~/cat-token-box/packages/cli/mint_script.sh
+}
+
+
+#输入代币的tokenId开始以实时费率mint某个代币
+start_mint_onecoin(){
+#!/bin/bash
+ 确保已安装 Node.js 和 TypeScript
+if ! command -v node &> /dev/null || ! command -v npm &> /dev/null
+then
+    echo "Node.js 或 npm 未安装"
+    exit 1
+fi
+
+# 安装 TypeScript（如果尚未安装）
+npm install -g typescript
+
+# TypeScript 文件路径
+TS_FILE="/packages/cli/src/common/apis-rpc.ts"
+
+# 使用 Node.js 脚本解析 TypeScript 文件
+RPC_FEE_RATE=$(node parse_ts.js "$TS_FILE" "rpc_getfeeRate")
+
+# 检查是否成功提取值
+if [ -n "$RPC_FEE_RATE" ]; then
+    echo "rpc_getfeeRate 的值是: $RPC_FEE_RATE"
+else
+    echo "无法找到 rpc_getfeeRate 的值"
+    exit 1
+fi
+read -p "请输入想要mint的tokenId: " tokenId
+    echo '#!/bin/bash   
+    command="sudo yarn cli mint -i 45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0 5"
+    #循环执行mint 代币
+    while true; do
+        $command
+
+        if [ $? -ne 0 ]; then
+            echo "命令执行失败，退出循环"
+            exit 1
+        fi
+
+        sleep 1
+    done' > ~/cat-token-box/packages/cli/mint_script.sh
+    chmod +x ~/cat-token-box/packages/cli/mint_script.sh
+
+
+
 }
 
 # 查看节点同步日志
