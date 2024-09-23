@@ -2,33 +2,32 @@ Centos与Ubuntu的使用习惯和命令上还是有很多的不同，下面简�
 
          1.centos中新建的非root用户是没有sudo的权限的，如果需要使用sudo权限必须在/etc/sudoers 中加入账户和权限，所以切换到root账号的时候只需要输入：su,加入root账号的密码即可。
 
-         在Ubuntu中，一般使用sudo+命令，如果是第一次使用会提示输入当前用户的密码（而不是root的密码）
+         在Ubuntu中，一般使用sudo+命令，如果是第一次使用会提示输入当前用户的密码（而不是root的密码） 切换到root用户 sudo -i
 
         2.在线安装软件中，centos使用的是yum命令，而ubuntu中使用的是apt-get命令。除此之外yum中还有一个从软件源中搜索摸个软件的方法yum search +软件名
 
                                      RedHat(Centos)                        Ubuntu(Debian)      
 任务
                                        服务管理(以apache为例)
-启动服务                       service httpd start           /etc/init.d/apache start
-停止服务                       service httpd stop       /etc/init.d/apache stop
-随系统启动自动运行     chkconfig httpd on      update-rc.d apachedefaults 
-禁止启动自动运行        chkconfig httpd off      update-rc.d apache purge
+启动服务                       service httpd start                          /etc/init.d/apache start
+停止服务                       service httpd stop                           /etc/init.d/apache stop
+随系统启动自动运行              chkconfig httpd on                           update-rc.d apachedefaults 
+禁止启动自动运行                chkconfig httpd off                          update-rc.d apache purge
                                              基本信息
 
-软件包后缀                    *.rpm                                       *.deb
-软件源配置文件           /etc/yum.conf            /etc/apt/sources.list
+软件包后缀                    *.rpm                                         *.deb
+软件源配置文件                /etc/yum.conf                                 /etc/apt/sources.list
 
-                      安装、删除、升级软件包
-更新软件包列表           每次运行yum时自动更新          apt-get update
-从软件仓库安装软        yum install package      apt-get install package       
-安装已下载的软件包    yu install pkg.rpm       dpkg -i pkg.deb
-                   或rpm -ivh pkg.rpm
+                                 安装、删除、升级软件包
+更新软件包列表                每次运行yum时自动更新                           apt-get update
+从软件仓库安装软              yum install package                           apt-get install package       
+安装已下载的软件包            yu install pkg.rpm或rpm -ivh pkg.rpm                             dpkg -i pkg.deb
+                           
 
-删除软件包                    yum -e package           apt-get remove package     
-软件包升级测试             yum check-update         apt-get -s update  apt-get -s dist-update
-升级件包                        yum update或                          apt-get upgrade
-                                        rpm - Uh [args]
-升级整个系统                yum upgrade              apt-get dist-upgrade  
+删除软件包                   yum -e package                                 apt-get remove package     
+软件包升级测试               yum check-update                               apt-get -s update  apt-get -s dist-update
+升级件包                     yum update或rpm - Uh [args]                    apt-get upgrade
+升级整个系统                yum upgrade                                     apt-get dist-upgrade  
 github
 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
 ssh 服务器ip 然后输入用户名和密码连接远程服务器
