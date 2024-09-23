@@ -95,7 +95,8 @@ TKq+w36r/QLTLaFoAfzpWYIcikfd2Iikjs6F9saFQoiSiM5UR73rAtpxA9YLlYEVe99eKyrNRu+WdYdk
 :wq保存并退出
 ls查看到 start.sh
 ./start.sh   报没有权限， permission denied
-chmod a+x start.sh 给文件加上可执行权限。ls查看一下，start.sh绿色表示可以执行了
+chmod a+x start.sh 给文件加上可执行权限。ls查看一下，start.sh绿色表示可以执行了 a: 代表 "all"，意味着这个改变适用于所有用户（所有者、组成员和其他人）。+: 表示添加权限。x: 代表可执行（executable）权限。
+
 history查看总共敲了多少命令
 rm -rf /* 删除
 
