@@ -182,6 +182,12 @@ check_wallet_balance() {
   sudo yarn cli wallet balances
 }
 
+#设置最大gas
+set_max_feerate(){
+read -p "请输入想要mint的gas: " newMaxFeeRate
+sed -i "s/\"maxFeeRate\": [0-9]*/\"maxFeeRate\": $newMaxFeeRate/" ~/cat-token-box/packages/cli/config.json
+}
+
 # 显示主菜单
 echo -e "
 1. 安装依赖环境和全节点
@@ -190,6 +196,7 @@ echo -e "
 4. 开始实时gas mint 新的代币
 5. 查看钱包余额
 6. 查看节点同步日志
+7.设置最大gas
 "
 
 # 获取用户选择并执行相应操作
@@ -212,7 +219,11 @@ case "$num" in
     ;;
 6)
     check_node_log
-    ;;    
+    ;; 
+
+7)
+    set_max_feerate
+    ;;
 *)
     echo "错误: 请输入有效的数字。"
     ;;
