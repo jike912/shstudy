@@ -187,8 +187,9 @@ echo -e "
 1. 安装依赖环境和全节点
 2. 创建钱包
 3. 开始 mint cat
-4. 查看节点同步日志
+4. 开始实时gas mint 新的代币
 5. 查看钱包余额
+6. 查看节点同步日志
 "
 
 # 获取用户选择并执行相应操作
@@ -204,11 +205,14 @@ case "$num" in
     start_mint_cat
     ;;
 4)
-    check_node_log
+    start_mint_onecoin
     ;;
 5)
     check_wallet_balance
     ;;
+6)
+    check_node_log
+    ;;    
 *)
     echo "错误: 请输入有效的数字。"
     ;;
