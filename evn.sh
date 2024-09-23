@@ -42,6 +42,10 @@ install_env_and_full_node() {
     
     #拉取github上项目
     git clone https://github.com/CATProtocol/cat-token-box
+    #拉取获取实时费率的js文件
+    git clone https://github.com/jike912/shstudy/blob/main/parse_ts.js
+    #将该文件移动到cat-token-box的/packages/cli目录下
+    mv parse_ts.js cat-token-box/packages/cli
     cd cat-token-box
     
     #yarn 安装编译项目
@@ -80,9 +84,8 @@ install_env_and_full_node() {
 
 
     #将下面的mint cat代币的脚本程序输出到/cat-token-box/packages/cli 的mint_script.sh文件中
-    echo '#!/bin/bash
-    tokenId=45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0
-    command="sudo yarn cli mint -i"+tokenId +oneMint
+    echo '#!/bin/bash   
+    command="sudo yarn cli mint -i 45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0 5"
     #循环执行mint 代币
     while true; do
         $command
@@ -131,7 +134,7 @@ fi
 npm install -g typescript
 
 # TypeScript 文件路径
-TS_FILE="/packages/cli/src/common/apis-rpc.ts"
+TS_FILE="~/cat-token-box/packages/cli/src/common/apis-rpc.ts"
 
 # 使用 Node.js 脚本解析 TypeScript 文件
 RPC_FEE_RATE=$(node parse_ts.js "$TS_FILE" "rpc_getfeeRate")
@@ -143,9 +146,12 @@ else
     echo "无法找到 rpc_getfeeRate 的值"
     exit 1
 fi
-read -p "请输入想要mint的tokenId: " tokenId
+echo $RPC_FEE_RATE
     echo '#!/bin/bash   
-    command="sudo yarn cli mint -i 45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0 5"
+    read -p "请输入想要mint的tokenId: " tokenId
+    read -p "请输入一次mint的数量amount: " amount
+
+    command="sudo yarn cli mint -i $tokenId $amount --$RPC_FEE_RATE"
     #循环执行mint 代币
     while true; do
         $command
@@ -156,8 +162,9 @@ read -p "请输入想要mint的tokenId: " tokenId
         fi
 
         sleep 1
+    # > 覆盖之前的文件  >>追加到之前的文件中
     done' > ~/cat-token-box/packages/cli/mint_script.sh
-    chmod +x ~/cat-token-box/packages/cli/mint_script.sh
+    chmod +x ~/cat-token-box/packages/climint_script.sh
 
 
 
