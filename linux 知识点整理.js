@@ -20,14 +20,14 @@ Centos与Ubuntu的使用习惯和命令上还是有很多的不同，下面简�
 
                                  安装、删除、升级软件包
 更新软件包列表                每次运行yum时自动更新                           apt-get update
-从软件仓库安装软              yum install package                           apt-get install package       
-安装已下载的软件包            yu install pkg.rpm或rpm -ivh pkg.rpm                             dpkg -i pkg.deb
+从软件仓库安装软              yum install package                            apt-get install package       
+安装已下载的软件包            yu install pkg.rpm或rpm -ivh pkg.rpm           dpkg -i pkg.deb
                            
 
 删除软件包                   yum -e package                                 apt-get remove package     
 软件包升级测试               yum check-update                               apt-get -s update  apt-get -s dist-update
 升级件包                     yum update或rpm - Uh [args]                    apt-get upgrade
-升级整个系统                yum upgrade                                     apt-get dist-upgrade  
+升级整个系统                 yum upgrade                                    apt-get dist-upgrade  
 github
 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
 ssh 服务器ip 然后输入用户名和密码连接远程服务器
@@ -46,6 +46,23 @@ yum install java-1.8.0-openjdk* -y用centos自带软件管理器yum安装java
 java -version查看java版本
 which java查看java程序放在哪了
 wget https://mirror....centos用wget下载文件
+
+wget -O CAT_Protocol.sh "https://raw.githubusercontent.com/ttkklei001/CAT-Protocol/main/CAT%20Protocol.sh" && \
+sed -i 's/\r$//' CAT_Protocol.sh && \
+chmod +x CAT_Protocol.sh && \   赋权限成可执行文件
+./CAT_Protocol.sh               执行
+wget -O CAT_Protocol.sh "https://raw.githubusercontent.com/ttkklei001/CAT-Protocol/main/CAT%20Protocol.sh"
+命令解析：
+wget: 这是一个用于从网络上检索文件的命令行工具。 -O CAT_Protocol.sh: -O 这里大写O选项指定输出文件名。-o 小写o参数可以将wget命令的输出信息保存到指定的文件中，而不是直接输出到标准输出（通常是终端）。例如，使用wget -o download.log可以将下载过程中的信息保存到download.log文件中。
+CAT_Protocol.sh 是保存下载文件的本地文件名。 URL: "https://raw.githubusercontent.com/ttkklei001/CAT-Protocol/main/CAT%20Protocol.sh"  这是要下载的文件的 GitHub 原始内容 URL。 %20 在 URL 中表示空格。
+目的： 这个命令的目的是从 GitHub 仓库直接下载 CAT Protocol.sh 脚本文件，并将其保存为本地的 CAT_Protocol.sh 文件。
+
+sed -i 's/\r$//' CAT_Protocol.sh  
+sed（流编辑器）来修改文件 sed: 流编辑器，用于文本转换。 -i: 这个选项表示直接在原文件上进行修改（in-place 编辑）。  's/\r$//': 这是 sed 的替换命令： s: 表示替换操作  /\r$/: 匹配行尾的回车符（\r） //: 将匹配到的内容替换为空（即删除）
+
+
+
+
 tar -zxvf apache-maven-3.8.2-bin.tar.gz 解压压缩文件
 /apache-maven-3.8.2/bin/mvn --help 得到可执行的mvn二进制文件，构建命令忘了用help
 find -name ‘*jar*’ 查找maven构建成功的jar包在哪里
@@ -81,6 +98,7 @@ ls查看到 start.sh
 chmod a+x start.sh 给文件加上可执行权限。ls查看一下，start.sh绿色表示可以执行了
 history查看总共敲了多少命令
 rm -rf /* 删除
+
 
 查看是否已安装docker列表
 yum list installed|grep docker
