@@ -24,7 +24,7 @@ check_root() {
 install_env_and_full_node() {
     check_root
     sudo apt update && sudo apt upgrade -y
-    #安装 curl tar wget git unzip zip docker等一系列命令
+    #快速设置一个开发环境，安装常用的开发工具和实用程序。clang: C、C++和Objective-C编译器 pkg-config: 编译应用程序和库时使用的helper工具 libssl-dev: SSL开发库 jq: 命令行 JSON 处理器 build-essential: 包含编译软件所需的基本工具 make: 项目构建工具 ncdu: NCurses磁盘使用分析器 -y: 自动回答 yes 到所有提示，允许非交互式安装
     sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu unzip zip docker.io -y
     
     #安装docker-compose
@@ -51,8 +51,10 @@ install_env_and_full_node() {
     cd ./packages/tracker/
     sudo chmod 777 docker/data
     sudo chmod 777 docker/pgdata
+    #运行 postgresql and bitcoind
     sudo docker-compose up -d
 
+    #运行tracker service 在项目根目录下构建docker镜像
     cd ../../
     sudo docker build -t tracker:latest .
     sudo docker run -d \
@@ -76,9 +78,9 @@ install_env_and_full_node() {
       }
     }' > ~/cat-token-box/packages/cli/config.json
 
-    echo '#!/bin/bash
 
-    #mint cat代币
+    #将下面的mint cat代币的脚本程序输出到/cat-token-box/packages/cli 的mint_script.sh文件中
+    echo '#!/bin/bash   
     command="sudo yarn cli mint -i 45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0 5"
     #循环执行mint 代币
     while true; do
@@ -120,6 +122,7 @@ check_node_log() {
 
 # 查看钱包余额
 check_wallet_balance() {
+#切换到root根目录下项目的cli的文件目录下~表示根目录
   cd ~/cat-token-box/packages/cli
   sudo yarn cli wallet balances
 }
