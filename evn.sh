@@ -1,6 +1,19 @@
-#!/bin/bash
+# #!: 这两个字符（"shebang"）告诉系统这是一个脚本文件。/bin/bash: 这是 Bash shell 解释器的路径。
+#重要性：它允许你直接运行脚本，而不需要显式调用解释器。确保脚本使用正确的 shell 或解释器执行。
+#变体：#!/bin/sh: 使用标准 shell  #!/usr/bin/python: 用于 Python 脚本 #!/usr/bin/env bash: 更具可移植性的 Bash 脚本声明
+#使用示例：
+#这里有一个简单的 Bash 脚本示例：
+#在这个脚本中，#!/bin/bash 确保它使用 Bash 解释器执行。
+#要使用这个脚本：
+#将内容保存到文件（如 hello.sh）
+#使用 chmod +x hello.sh 使其可执行
+#运行 ./hello.sh
+#记住，#!/bin/bash 只在类 Unix 系统（如 Linux 或 macOS）中有效。在 Windows 中，它会被忽略。
 
-Crontab_file="/usr/bin/crontab"
+
+#!/bin/bash
+#Crontab_file 定义了个路径变量，看着后面没有用到
+#Crontab_file="/usr/bin/crontab"
 
 # 检查是否为 root 用户
 check_root() {
