@@ -134,7 +134,7 @@ fi
 npm install -g typescript
 
 # TypeScript 文件路径
-TS_FILE="~/cat-token-box/packages/cli/src/common/apis-rpc.ts"
+TS_FILE="./src/common/apis-rpc.ts"
 
 # 使用 Node.js 脚本解析 TypeScript 文件
 RPC_FEE_RATE=$(node parse_ts.js "$TS_FILE" "rpc_getfeeRate")
