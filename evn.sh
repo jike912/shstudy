@@ -165,10 +165,7 @@ echo $RPC_FEE_RATE
         sleep 1
     # > 覆盖之前的文件  >>追加到之前的文件中
     done' > ~/cat-token-box/packages/cli/mint_script.sh
-    chmod +x ~/cat-token-box/packages/climint_script.sh
-
-
-
+    
 }
 
 # 查看节点同步日志
