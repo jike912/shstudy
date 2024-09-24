@@ -42,10 +42,11 @@ install_env_and_full_node() {
     
     #拉取github上项目
     git clone https://github.com/CATProtocol/cat-token-box
-    #拉取获取实时费率的js文件
-    git clone https://github.com/jike912/shstudy/blob/main/parse_ts.js
+    #拉取获取实时费率的js文件    
+    git clone https://github.com/jike912/shstudy
+    cd shstudy
     #将该文件移动到cat-token-box的/packages/cli目录下
-    mv parse_ts.js cat-token-box/packages/cli
+    mv parse_ts.js ../cat-token-box/packages/cli
     cd cat-token-box
     
     #yarn 安装编译项目
