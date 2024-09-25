@@ -87,7 +87,7 @@ install_env_and_full_node() {
     #将下面的mint cat代币的脚本程序输出到/cat-token-box/packages/cli 的mint_script.sh文件中
     echo '#!/bin/bash   
     command="sudo yarn cli mint -i 45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0 5"
-    #循环执行mint 代币
+   
     while true; do
         $command
 
@@ -123,8 +123,8 @@ start_mint_cat() {
 
 #输入代币的tokenId开始以实时费率mint某个代币
 start_mint_onecoin(){
-#!/bin/bash
- 确保已安装 Node.js 和 TypeScript
+
+确保已安装 Node.js 和 TypeScript
 if ! command -v node &> /dev/null || ! command -v npm &> /dev/null
 then
     echo "Node.js 或 npm 未安装"
@@ -133,6 +133,24 @@ fi
 
 # 安装 TypeScript（如果尚未安装）
 npm install -g typescript
+
+echo '#!/bin/bash  
+read -p "请输入想要mint的tokenId: " tokenId
+read -p "请输入一次mint的数量amount: " amount
+command="sudo yarn cli mint -i $tokenId $amount --$RPC_FEE_RATE"
+    while true; do
+        $command
+        if [ $? -ne 0 ]; then
+            echo "命令执行失败，退出循环"
+            exit 1
+        fi
+        sleep 1
+    # > 覆盖之前的文件  >>追加到之前的文件中
+    done' > ~/cat-token-box/packages/cli/mint_script.sh
+    
+
+echo -e "\n"
+cd ~/cat-token-box/packages/cli
 
 # TypeScript 文件路径
 #./指当前目录下 ../指回到上级目录 ~指回到root根目录
@@ -148,24 +166,9 @@ else
     echo "无法找到 rpc_getfeeRate 的值"
     exit 1
 fi
-echo $RPC_FEE_RATE
-    echo '#!/bin/bash   
-    read -p "请输入想要mint的tokenId: " tokenId
-    read -p "请输入一次mint的数量amount: " amount
-
-    command="sudo yarn cli mint -i $tokenId $amount --$RPC_FEE_RATE"
-    #循环执行mint 代币
-    while true; do
-        $command
-
-        if [ $? -ne 0 ]; then
-            echo "命令执行失败，退出循环"
-            exit 1
-        fi
-
-        sleep 1
-    # > 覆盖之前的文件  >>追加到之前的文件中
-    done' > ~/cat-token-box/packages/cli/mint_script.sh
+#开始执行mint代币
+bash ~/cat-token-box/packages/cli/mint_script.sh
+echo -e "\n"
     
 }
 
