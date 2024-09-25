@@ -124,13 +124,6 @@ start_mint_cat() {
 #输入代币的tokenId开始以实时费率mint某个代币
 start_mint_onecoin(){
 
-确保已安装 Node.js 和 TypeScript
-if ! command -v node &> /dev/null || ! command -v npm &> /dev/null
-then
-    echo "Node.js 或 npm 未安装"
-    exit 1
-fi
-
 # 安装 TypeScript（如果尚未安装）
 npm install -g typescript
 
