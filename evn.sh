@@ -47,7 +47,7 @@ install_env_and_full_node() {
     cd shstudy
     #将该文件移动到cat-token-box的/packages/cli目录下
     mv parse_ts.js ../cat-token-box/packages/cli
-    cd cat-token-box
+    cd ../cat-token-box
     
     #yarn 安装编译项目
     sudo yarn install
