@@ -135,6 +135,7 @@ fi
 npm install -g typescript
 
 # TypeScript 文件路径
+#./指当前目录下 ../指回到上级目录 ~指回到root根目录
 TS_FILE="./src/common/apis-rpc.ts"
 
 # 使用 Node.js 脚本解析 TypeScript 文件
